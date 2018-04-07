@@ -1,26 +1,26 @@
-function y=mlptestAA(testVeri, W, bias, noronSayisi, aktivasyon)
+function y=mlptest(testVeri, W, bias, noronSayisi, aktivasyon)
 
-% mlptest: türevsel azalma ve momentum kullanan çok katmanlı sinir ağı test
-% işlemi
+% mlptest: tÃ¼revsel azalma ve momentum kullanan Ã§ok katmanlÃ½ sinir aÃ°Ã½ test
+% iÃ¾lemi
 %
 %
-%Çıkış Parametreleri
-%         y= nöron ağının çıkış değeri
+%Ã‡Ã½kÃ½Ã¾ Parametreleri
+%         y= nÃ¶ron aÃ°Ã½nÃ½n Ã§Ã½kÃ½Ã¾ deÃ°eri
 %
-%Giriş Parametreleri
-%         testVeri: nöron ağı ile sınıflandırılacak olan veri.
-%         W: mlptgm fonksiyonu ile yapılaneğitim sonucunda optimize edilmiş olan ağırlıklar
-%         bias: iç çarpımın değerinin sıfır olmasını engelleyen katsayı
-%         noronSayisi: Ara katman nöron sayıları dizisi
+%GiriÃ¾ Parametreleri
+%         testVeri: nÃ¶ron aÃ°Ã½ ile sÃ½nÃ½flandÃ½rÃ½lacak olan veri.
+%         W: mlptgm fonksiyonu ile yapÃ½laneÃ°itim sonucunda optimize edilmiÃ¾ olan aÃ°Ã½rlÃ½klar
+%         bias: iÃ§ Ã§arpÃ½mÃ½n deÃ°erinin sÃ½fÃ½r olmasÃ½nÃ½ engelleyen katsayÃ½
+%         noronSayisi: Ara katman nÃ¶ron sayÃ½larÃ½ dizisi
 %
-%Örnek Kullanım
+%Ã–rnek KullanÃ½m
 %         mlptest(testVeri, W, bias, [20, 10, 20, 45])
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %                           TEST                               %
-% % Türevsel azalma ve momentum kullanan çok katmanlı sinir ağı  %
+% % TÃ¼revsel azalma ve momentum kullanan Ã§ok katmanlÃ½ sinir aÃ°Ã½  %
 % %                                                              %
-% %                    Apdullah Yayık, 2016                      %
+% %                    Apdullah YayÃ½k, 2016                      %
 % %                    apdullahyayik@gmail.com                   %
 % %                                                              %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,9 +29,9 @@ testveriSayi=size(testVeri,1);
 H = cell(1,length(noronSayisi));
 H{1, length(noronSayisi)}=[];
 for i=1:testveriSayi
-    % Eğitim verisi
+    % EÃ°itim verisi
     I = testVeri(i,:)';
-    % Ara katman çıkışı (H) ve çıkış katmanı çıkışı (O) hesaplanması
+    % Ara katman Ã§Ã½kÃ½Ã¾Ã½ (H) ve Ã§Ã½kÃ½Ã¾ katmanÃ½ Ã§Ã½kÃ½Ã¾Ã½ (O) hesaplanmasÃ½
     for li=1:length(noronSayisi)+1
         switch li
             case 1
