@@ -1,43 +1,43 @@
-function  [W, bias, noronSayisi]  = mlptgmAA(egitimVeri, egitimHedef, ogrenmeOrani, momentum, noronSayisi, iterasyonSayisi,...
+function  [W, bias, noronSayisi]  = mlptgm(egitimVeri, egitimHedef, ogrenmeOrani, momentum, noronSayisi, iterasyonSayisi,...
     sabirSiniri, gosterim, bias, aktivasyon)
 
 
 
-% mlpgm: türevsel azalma ve momentum kullanan çok katmanlı sinir ağı eğitimi işlemi
+% mlpgm: tÃ¼revsel azalma ve momentum kullanan Ã§ok katmanlÄ± sinir aÄŸÄ± eÄŸitimi iÅŸlemi
 %
 %
-%Çıkış Parametreleri
-%         W: Giriş ve hesaplama yapılan katmanlara ait optimize edilmiş ağırlıklar
-%         bias: iç çarpımın sıfır olmasını engelleyen parametre
-%         noronSayisi: Ara katmanların nöron sayıları dizisi
+%Ã‡Ä±kÄ±ÅŸ Parametreleri
+%         W: GiriÅŸ ve hesaplama yapÄ±lan katmanlara ait optimize edilmiÅŸ aÄŸÄ±rlÄ±klar
+%         bias: iÃ§ Ã§arpÄ±mÄ±n sÄ±fÄ±r olmasÄ±nÄ± engelleyen parametre
+%         noronSayisi: Ara katmanlarÄ±n nÃ¶ron sayÄ±larÄ± dizisi
 %
-%Giriş Parametreleri
-%         egitimVeri: egitimde kullanılacak olan veri (doğrulama verisi bu veri üzerinden alınarak oluşturuluyor)
-%         egitimHedef: egitimVeri ye ait sınıf bilgileri
-%         ogrenmeOrani: türevsel azalma işlemindeki adım miktarı
-%         momentum: Ağırlık değişimi için kullanılan optimizasyon parametresi
-%         noronSayisi: Ara katman nöron sayıları dizisi
-%         iterasyonSayisi : Ağırlık optimzasyonu için tüm eğitim verisinin en fazla eğitilme sayısı
-%         sabirSiniri: Eğitimi erken durdurma için belirlenen, doğrulama verisine ait ortalama toplam hata karelerin sürekli azaldığı iterasyon sayisi.
-%         gosterim: Her iterasyon sonunda egitim verileri ile yapılan ağırlık optimazasyonları sonrası bu ağırlıklar ile eğitim verileri ve
-%         doğrulama verilerine ait ortalama hata karelerin grafiksel gösteriminin canlı olarak izlenmesi. (1 açık, 0 kapali)
+%GiriÅŸ Parametreleri
+%         egitimVeri: egitimde kullanÄ±lacak olan veri (doÄŸrulama verisi bu veri Ã¼zerinden alÄ±narak oluÅŸturuluyor)
+%         egitimHedef: egitimVeri ye ait sÄ±nÄ±f bilgileri
+%         ogrenmeOrani: tÃ¼revsel azalma iÅŸlemindeki adÄ±m miktarÄ±
+%         momentum: AÄŸÄ±rlÄ±k deÄŸiÅŸimi iÃ§in kullanÄ±lan optimizasyon parametresi
+%         noronSayisi: Ara katman nÃ¶ron sayÄ±larÄ± dizisi
+%         iterasyonSayisi : AÄŸÄ±rlÄ±k optimzasyonu iÃ§in tÃ¼m eÄŸitim verisinin en fazla eÄŸitilme sayÄ±sÄ±
+%         sabirSiniri: EÄŸitimi erken durdurma iÃ§in belirlenen, doÄŸrulama verisine ait ortalama toplam hata karelerin sÃ¼rekli azaldÄ±ÄŸÄ± iterasyon sayisi.
+%         gosterim: Her iterasyon sonunda egitim verileri ile yapÄ±lan aÄŸÄ±rlÄ±k optimazasyonlarÄ± sonrasÄ± bu aÄŸÄ±rlÄ±klar ile eÄŸitim verileri ve
+%         doÄŸrulama verilerine ait ortalama hata karelerin grafiksel gÃ¶steriminin canlÄ± olarak izlenmesi. (1 aÃ§Ä±k, 0 kapali)
 %
 %
-% Örnek Kullanım
+% Ã–rnek KullanÄ±m
 %         mlptgm(egitimVeri, egitimHedef,.4, .01,[20, 20, 10, 30], 1000,20, 1)
 %
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %                           EĞİTİM                             %
-% % Türevsel azalma ve momentum kullanan çok katmanlı sinir ağı  %
+% %                           EÄÄ°TÄ°M                             %
+% % TÃ¼revsel azalma ve momentum kullanan Ã§ok katmanlÄ± sinir aÄŸÄ±  %
 % %                                                              %
-% %                    Apdullah Yayık, 2016                      %
+% %                    Apdullah YayÄ±k, 2016                      %
 % %                    apdullahyayik@gmail.com                   %
 % %                                                              %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % if (numel(aktivasyon)~=numel(noronSayisi))
-%     error('Belirlenen katman sayisi ve aktivasyon fonksiyonları sayısı uyumsuz.')
+%     error('Belirlenen katman sayisi ve aktivasyon fonksiyonlarÄ± sayÄ±sÄ± uyumsuz.')
 % end
 
 warning off;
@@ -97,14 +97,14 @@ delta = cell(iterasyonSayisi,length(noronSayisi));
 delta{iterasyonSayisi, length(noronSayisi)}=[];
 switch gosterim
     case 1
-        figure,xlabel('iterasyon sayisi'), ylabel('ortalama hata kareler toplamı'), goodplot, hold on,
+        figure,xlabel('iterasyon sayisi'), ylabel('ortalama hata kareler toplamÄ±'), goodplot, hold on,
 end
 for m=1:iterasyonSayisi
     for i=1:egitimveriSayi
-        % Eğitim verisi
+        % EÄŸitim verisi
         I = egitimVeri(i,:)';
         D = egitimHedef(i,:)';
-        % Ara katman çıkışı (H) ve çıkış katmanı çıkışı (O) hesaplanması
+        % Ara katman Ã§Ä±kÄ±ÅŸÄ± (H) ve Ã§Ä±kÄ±ÅŸ katmanÄ± Ã§Ä±kÄ±ÅŸÄ± (O) hesaplanmasÄ±
         for li=1:length(noronSayisi)+1
             switch li
                 case 1
@@ -149,7 +149,7 @@ for m=1:iterasyonSayisi
                     end
             end
         end
-        % yerel türevlerin hesaplanması
+        % yerel tÃ¼revlerin hesaplanmasÄ±
         %                     if delta{m,di}<=1e-5   % min gradient for early stopping
         %                         break
         %                     end
@@ -169,7 +169,7 @@ for m=1:iterasyonSayisi
                             localgradient_output=1;
                     end
                     delta{m,di}=localgradient_output.*(D-O);
-                    deltaW=(ogrenmeOrani.*delta{m, di}*H{1,di-1}'); % Doğal olarak son katmanda momentum uygulanamaz !
+                    deltaW=(ogrenmeOrani.*delta{m, di}*H{1,di-1}'); % DoÄŸal olarak son katmanda momentum uygulanamaz !
                     W{m+1,di}=W{m,di}+deltaW;
                 case 1
                     switch aktivasyon{1}
@@ -186,7 +186,7 @@ for m=1:iterasyonSayisi
                     end
                     delta{m,di}=localgradient_input.*(W{m,di+1}.'*delta{m,di+1});
                                         deltaW=(ogrenmeOrani.*delta{m, di}*I');
-%                     deltaW=momentum.*(ogrenmeOrani.*delta{m, di}*I')+(ogrenmeOrani.*delta{m, di}*I'); % hız
+%                     deltaW=momentum.*(ogrenmeOrani.*delta{m, di}*I')+(ogrenmeOrani.*delta{m, di}*I'); % hÄ±z
                     W{m+1,di}=W{m,di}+deltaW;
                 otherwise
                     switch aktivasyon{di}
@@ -210,7 +210,7 @@ for m=1:iterasyonSayisi
     end
     SSErr=0;
     SSErrval=0;
-    % Eğitim verileri için Hata Kareler Toplamı (SSE)
+    % EÄŸitim verileri iÃ§in Hata Kareler ToplamÄ± (SSE)
     for i=1:egitimveriSayi
         D = egitimHedef(i,:)';
         I = egitimVeri(i,:)';
@@ -259,12 +259,12 @@ for m=1:iterasyonSayisi
         end
         SSErr=SSErr+sum(D-O).^2;
     end
-    MSSE(m)=SSErr/egitimveriSayi; % MSSE: Eğitim verilerinin hata karaler toplamı ortalaması
+    MSSE(m)=SSErr/egitimveriSayi; % MSSE: EÄŸitim verilerinin hata karaler toplamÄ± ortalamasÄ±
     switch gosterim
         case 1
             plot(m,MSSE(m),'g+'), hold on
     end
-    % Doğrulama verileri için Hata Kareler Toplamı (SSEval)
+    % DoÄŸrulama verileri iÃ§in Hata Kareler ToplamÄ± (SSEval)
     for id=1:dogrulamaveriSayisi
         Dval = dogrulamaHedef(id,:)';
         Ival = dogrulamaVeri(id,:)';
@@ -313,10 +313,10 @@ for m=1:iterasyonSayisi
         end
         SSErrval=SSErrval+sum(Dval-Oval).^2;
     end
-    MSSEval(m)=SSErrval/dogrulamaveriSayisi;  % MSSEval: Doğrulama verilerinin hata karaler toplamı ortalaması
+    MSSEval(m)=SSErrval/dogrulamaveriSayisi;  % MSSEval: DoÄŸrulama verilerinin hata karaler toplamÄ± ortalamasÄ±
     switch gosterim
         case 1
-            plot(m,MSSEval(m),'r*'), legend('egitim', 'doğrulama')
+            plot(m,MSSEval(m),'r*'), legend('egitim', 'doÄŸrulama')
             pause(.00001)
     end
     % Erken durdurma
@@ -335,15 +335,15 @@ end
 save m m
 switch gosterim
     case 0
-        figure,goodplot, plot(MSSE,'g+'), hold on, plot(MSSEval,'r*'), xlabel('iterasyon sayisi'), ylabel('ortalama hata kareler toplamı')
-        legend('egitim', 'doğrulama')
+        figure,goodplot, plot(MSSE,'g+'), hold on, plot(MSSEval,'r*'), xlabel('iterasyon sayisi'), ylabel('ortalama hata kareler toplamÄ±')
+        legend('egitim', 'doÄŸrulama')
 end
-% eğitimde başarı
+% eÄŸitimde baÅŸarÄ±
 for i=1:egitimveriSayi
-    % Eğitim verisi
+    % EÄŸitim verisi
     I = egitimVeri(i,:)';
     D(i)= egitimHedef(i,:)';
-    % Ara katman çıkışı (H) ve çıkış katmanı çıkışı (O) hesaplanması
+    % Ara katman Ã§Ä±kÄ±ÅŸÄ± (H) ve Ã§Ä±kÄ±ÅŸ katmanÄ± Ã§Ä±kÄ±ÅŸÄ± (O) hesaplanmasÄ±
     for li=1:length(noronSayisi)+1
         switch li
             case 1
