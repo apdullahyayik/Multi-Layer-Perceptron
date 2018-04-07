@@ -1,15 +1,15 @@
 function Y=aktivasyonFonk(x, aktivasyon, durum)
-%AKTIVASYONFONK: Aktivasyon fonksiyonlarını ve türevlerini hesaplar.
-% eğer durum:=1--> ileri besleme
-% Y: katman çıkışı, x: giriş ve ağırlık iç çarpımı
-% eğer durum:=0--> türev (yerel gradient)
-% Y: yerel gradient, x: katman çıkış değeri
+%AKTIVASYONFONK: Aktivasyon fonksiyonlarÄ±nÄ± ve tÃ¼revlerini hesaplar.
+% eÄŸer durum:=1--> ileri besleme
+% Y: katman Ã§Ä±kÄ±ÅŸ, x: giriÅŸ ve aÄŸÄ±rlÄ±k iÃ§ Ã§arpÄ±mÄ±
+% eÄŸer durum:=0--> tÃ¼rev (yerel gradient)
+% Y: yerel gradient, x: katman Ã§Ä±kÄ±ÅŸ deÄŸeri
 %
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %                                              %
 % %                  AKTIVASYONFONK              %
-% %               Yazar: Apdullah Yayık          %
+% %                  Apdullah YayÄ±k, 2016        %
 % %                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -54,7 +54,7 @@ Y=x .* (x > 0);
 function Y=tan_h(x)
 Y=1.7159*tanh(2/3.*x);
 
-% tanh Matlab kütüphanede mevcut
+% tanh Matlab kÃ¼tÃ¼phanede mevcut
 % function Y=tanh(x)
 % Y=(exp(x)-exp(-x))./(exp(x)+exp(-x));
 
